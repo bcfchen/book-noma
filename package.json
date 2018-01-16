@@ -1,0 +1,13 @@
+{
+  "name": "book-noma",
+  "description": "javascript to book noma restaurant",
+  "version": "0.0.1",
+  "devDependencies": {
+    "mocha": "*",
+    "ontime": "0.0.4",
+    "selenium-webdriver": "^4.0.0-alpha.1"
+  },
+  "dependencies": {
+    "n": "^2.1.8"
+  }
+}
