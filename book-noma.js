@@ -1,7 +1,10 @@
 var ontime = require('ontime')
 
 // index 2 is the first argument after "node" and name of this script
-var timeToRun = process.argv[2];
+var timeToRun = process.argv[3],
+    nthAvailableTime = process.argv[2];
+
+console.log('snatching ' + nthAvailableTime + "th available time");
 console.log('waiting for time: ', timeToRun);
 
 if (timeToRun){
@@ -10,16 +13,16 @@ if (timeToRun){
       cycle: [timeToRun]
   }, function (ot) {
       // do your job here
-      makeReservation();
+      makeReservation(nthAvailableTime);
       ot.done()
       return
   })
 } else {
-  makeReservation();
+  makeReservation(nthAvailableTime);
 }
 
 
-function makeReservation(){
+function makeReservation(nthAvailableTime){
   var webdriver = require('selenium-webdriver'),
       By = webdriver.By,
       until = webdriver.until,
@@ -30,7 +33,7 @@ function makeReservation(){
       .build();
 
   driver.get('https://www.exploretock.com/lazybearsf/experience/493/lazy-bear-dinner?date=2018-02-21&size=2&time=19%3A00');
-  var elem = driver.findElement(By.className('Consumer-resultsListItem'));
+  var elem = driver.findElement(By.xpath("(//*[@class='Consumer-resultsListItem is-available Consumer-resultsListItem--wide'])[" + nthAvailableTime + "]"));
   elem.click();
 
   console.log("time selected");
